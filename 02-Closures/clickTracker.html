@@ -3,6 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Click Tracker</title>
+	<script>
+		(function myApp(){
+			var counter = 0;
+
+			window.addEventListener('DOMContentLoaded', init);
+			
+			function init(){
+				var btnTrack = document.getElementById('btnTrack');
+				btnTrack.addEventListener('click', onBtnTrackClick);
+			}
+			
+			function onBtnTrackClick(){
+				++counter;
+				document.getElementById('divResult').innerHTML = counter;
+			}
+		})();
+		//myApp();
+	</script>
 </head>
 <body>
 	<input type="button" value="Track" id="btnTrack">
