@@ -21,21 +21,39 @@ describe('Default List', function(){
 
 describe("Sorting", function(){
 	describe("Default sort [products by id]", function(){
-		//sort
+		function sort(){
+			for(var i=0; i < products.length-1; i++)
+				for(var j=i+1; j < products.length; j++)
+					if (products[i].id > products[j].id){
+						var temp = products[i];
+						products[i] = products[j];
+						products[j] = temp;
+					}
+		}
+		sort();
 		console.table(products);
 	});
 
-	/*describe("Sort by any attribute", function(){
+	describe("Sort by any attribute", function(){
+		function sort(list, attrName){
+			for(var i=0; i < list.length-1; i++)
+				for(var j=i+1; j < list.length; j++)
+					if (list[i][attrName] > list[j][attrName]){
+						var temp = list[i];
+						list[i] = list[j];
+						list[j] = temp;
+					}
+		}
 		describe('Products by cost', function(){
-			//sort
+			sort(products, 'cost');
 			console.table(products);
 		});
 
 		describe('Products by units', function(){
-			//sort
+			sort(products, 'units');
 			console.table(products);
 		});
-	});*/
+	});
 });
 
 /*describe('Filtering', function(){
