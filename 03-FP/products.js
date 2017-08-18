@@ -93,7 +93,7 @@ describe("Sorting", function(){
 	});
 });
 
-describe('Filtering', function(){
+describe('GroupBy', function(){
 	describe('All costly products [ cost > 50 ]', function(){
 		function filterCostlyProducts(){
 			var result = [];
@@ -169,5 +169,37 @@ describe('Filtering', function(){
 			});
 		});
 	})
+	function groupBy(list, keySelector){
+		var result = {};
+		for(var index=0; index < list.length; index++){
+			var key = keySelector(list[index]);
+			if (typeof result[key] === 'undefined')
+				result[key] = [];
+			result[key].push(list[index]);
+		}
+		return result;
+	}
 
+	function describeGroup(groupedObj){
+		for(var key in groupedObj){
+			describe('Key - [' + key + ']', function(){
+				console.table(groupedObj[key]);
+			});
+		}
+	}
+	describe('Products by category', function(){
+		var categoryKeySelector = function(product){
+			return product.category;
+		};
+		var productsByCategory = groupBy(products, categoryKeySelector);
+		describeGroup(productsByCategory);
+	});
+
+	describe('Products by affordability', function(){
+		var costKeySelector = function(product){
+			return product.cost > 50 ? 'costly' : 'affordable';
+		};
+		var productsByAffordability = groupBy(products, costKeySelector);
+		describeGroup(productsByAffordability);
+	});
 });
